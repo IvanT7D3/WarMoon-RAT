@@ -1,6 +1,8 @@
 # WarMoon
 WarMoon is an open-source example of RAT that can be used as a (Badly programmed) reverse shell, with a few custom functionalities for both 64/32-bit Windows systems.
 
+![Server-Image](https://github.com/IvanT7D3/WarMoon/blob/5d1aeaef5ea907dddfb6af3ff408900f74efa49c/img.png)
+
 ## Versions
 There are 2 versions of the Client software. 64 and 32 bit.
 
