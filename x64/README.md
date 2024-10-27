@@ -6,7 +6,7 @@ sudo apt install mingw-w64
 ```
 2. Clone the repository:
 ```bash
-git clone https://github.com/IvanT7D3/WarMoon/x64.git
+git clone https://github.com/IvanT7D3/WarMoon
 ```
 3. Open Client.c and replace the contents of the variable ServerIP at line 30 with the IP address of the attacker machine
 4. From the terminal, generate the shellcode for ShellcodeX64 using the first commented msfvenom command (Line 49) (Replace the LHOST variable with the IP address of the attacker machine)
