@@ -3,6 +3,18 @@ WarMoon is an open-source example of RAT that can be used as a (Badly programmed
 
 ![Server-Image](https://github.com/IvanT7D3/WarMoon/blob/5d1aeaef5ea907dddfb6af3ff408900f74efa49c/img.png)
 
+# Requirements
+
+1. Install mingw-w64
+```bash
+sudo apt install mingw-w64
+```
+
+2. Clone the repository:
+```bash
+git clone https://github.com/IvanT7D3/WarMoon
+```
+
 ## Versions
 There are 2 versions of the Client software. 64 and 32 bit.
 
