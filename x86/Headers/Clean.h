@@ -48,7 +48,7 @@ int CleanLogsAPI()
 int CleanBins()
 {
 	char Success[] = "\033[0;35m[+] Cleaned bins!\033[0m\n";
-	char Error[] = "\033[1;31m[-] Recycle bins are already empty / Can't clean bins. Something went wrong.\033[0m\n";
+	char Error[] = "\033[1;31m[-] Recycle bins are already empty\033[0m\n";
 
 	HRESULT Cleaned;
 	Cleaned = SHEmptyRecycleBinA(NULL, NULL, SHERB_NOCONFIRMATION | SHERB_NOPROGRESSUI | SHERB_NOSOUND);
