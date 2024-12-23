@@ -44,7 +44,7 @@ void HelpMenu()
 	printf("\033[0;33m menu : \033[1;31mPrint the Help Screen (This :D)\033[0m\033[0m\n");
 	printf("\033[0;33m startlogger : \033[0;33m(A*)\033[1;31m Start Keylogger. LogFile In 'C:\\Users\\out.txt'.\033[0m\n");
 	printf("\033[0;33m stoplogger : \033[0;33m(A*)\033[1;31m Stop Keylogger.\033[0m\n");
-	printf("\033[0;33m persistence1: \033[1;31mPersistence on the victim host (HKCU).\033[0m\n");
+	printf("\033[0;33m persistence1 : \033[1;31mPersistence on the victim host (HKCU).\033[0m\n");
 	printf("\033[0;33m persistence2 : \033[1;31m(RunOnce) Persistence on the victim host (HKCU).\033[0m\n");
 	printf("\033[0;33m persistence3 : \033[1;31mPersistence on the victim host (HKCU).\033[0m\n");
 	printf("[!]Remember that you can also create your own persistence keys.\n");
