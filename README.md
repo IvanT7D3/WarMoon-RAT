@@ -67,8 +67,6 @@ This section is one of the many reasons why you shouldn't use this, except for l
 This section tries to keep track of known bugs that were discovered.
 I tried to fix as many as I could. If you find other bugs, feel free to let me know.
 
-- If you use the server main shell to open a file that is greater than 18384 bytes in size, the client will crash. This can be avoided by increasing the size of the buffers, but I doubt that's the best solution.
-
 - If you use wipembr on a Windows 7 machine, the client will crash (The MBR will still be wiped). The crash doesn't seem to happen on Windows 10 machines.
 
 This project was tested mainly on Windows 7 Ultimate and Windows 10. If you have found any other bug and would like to report it, feel free to email me at: ituser905649056(at)protonmail.com
