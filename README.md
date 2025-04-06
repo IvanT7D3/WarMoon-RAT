@@ -56,8 +56,8 @@ If you want to use the outdated version, extract Outdated.7z, and read its READM
 
 Things that can be added to improve the whole WarMoon project:
 - [ ] Add GUI : Qt
-- [ ] Add more functionalities : Proxy, privilege escalation, something else?).
-- [ ] Fix bugs : (Read the section 'Known Bugs')
+- [ ] Add more functionalities : Proxy, privilege escalation, something else?
+- [ ] Fix bugs : Read the section 'Known Bugs'
 
 ## Demo
 Here's a link if you want to watch an outdated [Demo](https://www.youtube.com/watch?v=nErq4wlsF1g)
