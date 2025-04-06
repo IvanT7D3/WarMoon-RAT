@@ -4,7 +4,7 @@ After cloning the whole project and getting inside of the x86 folder:
 
 1. If you want to be able to use inject86, open Client.c and execute the commented msfvenom command at line 59 (Replace the LHOST/LPORT according to your needs), and then replace the contents of the variable ShellcodeX86 at line 61 with the output of the command.
 
-2. You can generate a new certificate to use if you want (A default one was already provided for ease of use). If you generate a new certificate using Setup.sh, you must copy the contents of public.crt, into the variable 'ServerPublicCertPem' in Client.c:
+2. You can generate a new certificate to use if you want (a default one was already provided for ease of use). If you generate a new certificate using Setup.sh, you must copy the contents of public.crt, into the variable 'ServerPublicCertPem' in Client.c:
 ```bash
 cd ..
 ./Setup.sh cert
@@ -12,10 +12,11 @@ cd ..
 
 3. You can now compile. Type:
 ```bash
+cd ..
 ./Setup.sh compile
 ```
 
-4. If everything went correctly, you should now have 4 executables: 2 clients, and 2 servers. If not, there was an error when trying to compile. Make sure you did everything correctly.
+4. If everything went correctly, you should now have 4 executables: 2 clients (x64 and x86), and 2 server executables (x64 and x86). If not, there was an error when trying to compile. Make sure you did everything correctly.
 
 5. You can now provide the IP address of the server from both client and server, by passing an argument:
 ```bash
