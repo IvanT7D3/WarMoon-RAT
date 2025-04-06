@@ -12,7 +12,6 @@ cd ..
 
 3. You can now compile. Type:
 ```bash
-cd ..
 ./Setup.sh compile
 ```
 
