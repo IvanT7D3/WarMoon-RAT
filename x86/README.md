@@ -36,6 +36,8 @@ set payload windows/meterpreter/reverse_tcp
 run
 ```
 
+7. All done. Enjoy!
+
 Info: Fallback shell and startcat have been removed from the x86 version due to some inconsistencies.
 
 # Commands
