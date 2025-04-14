@@ -14,12 +14,12 @@ git clone https://github.com/IvanT7D3/WarMoon
 ```bash
 ./Setup.sh install
 ```
-3. If you want to generate a new certificate, use:
+3. (optional) If you want to generate a new certificate, use:
 ```bash
 ./Setup.sh cert
 ```
 
-4. If you generated a new certificate, you must also modify the Client.c file, to include the new certificate. A certificate is already being used. This means that you don't necessarily have to create another certificate.
+4. (optional) If you generated a new certificate, you must also modify the Client.c file to include the new public file. By default a certificate is already provided. This means that you don't necessarily have to generate a new one if you don't want.
 
 5. To compile, run:
 ```bash
