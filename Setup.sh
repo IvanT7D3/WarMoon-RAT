@@ -14,12 +14,18 @@ if [ -z "$1" ]; then
 	echo -e "${Error}cert : Generate a new key-pair${COff}"
 	echo -e "${Error}You will then have to copy the contents of public.crt inside of the respective variable in the Client.c file"
 	echo ""
-	echo -e "${Error}compile : Compiles server and client (both x64 and x86 versions)${COff}"
-	echo -e "${Error}Make sure you first add the server's IP address in both client and server files for both versions.${COff}"
+	echo -e "${Error}compile : Compiles server and client (both versions)${COff}"
 	exit 0
 fi
 
 if [ "$1" == "install" ]; then
+	if dpkg -s "libssl-dev" &> /dev/null; then
+		echo -e "${Success}libssl-dev is installed. Proceeding...${COff}"
+	else
+		echo -e "${Error}libssl-dev is NOT installed. Installing...${COff}"
+		apt-get install libssl-dev -y
+	fi
+
 	echo -e "${Success}Starting...${COff}"
 
 	if [ -d "$HOME/OpenSSL-Windows-Static-x64" ]; then
@@ -81,6 +87,13 @@ EOF
 elif [ "$1" == "compile" ]; then
 	echo -e "${Success}Verifying if I can compile...${COff}"
 
+	if dpkg -s "libssl-dev" &> /dev/null; then
+		echo -e "${Success}libssl-dev is installed. Proceeding...${COff}"
+	else
+		echo -e "${Error}libssl-dev is NOT installed. Installing...${COff}"
+		apt-get install libssl-dev -y
+	fi
+
 	if [ ! -d "$HOME/OpenSSL-Windows-Static-x64" ]; then
 		echo -e "${Error}The folder '$HOME/OpenSSL-Windows-Static-x64' doesn't exist!${COff}"
 		exit 1
@@ -103,11 +116,11 @@ elif [ "$1" == "compile" ]; then
 
 	echo -e "${Success}OK ... Compiling x64 version.${COff}"
 
-	x86_64-w64-mingw32-gcc -o Client-x64.exe x64/Client.c -I$HOME/OpenSSL-Windows-Static-x64/usr/local/include -L$HOME/OpenSSL-Windows-Static-x64/usr/local/lib64 -lssl -lcrypto -lws2_32 -lcrypt32 -lwininet -lgdi32 -lntdll -static && gcc x64/Server.c -o ./Server-x64 -lssl -lcrypto
+	x86_64-w64-mingw32-gcc -o Client-x64.exe x64/Client.c -Wl,--no-insert-timestamp -I$HOME/OpenSSL-Windows-Static-x64/usr/local/include -L$HOME/OpenSSL-Windows-Static-x64/usr/local/lib64 -lssl -lcrypto -lws2_32 -lcrypt32 -lwininet -lgdi32 -lntdll -static && gcc x64/Server.c -o ./Server-x64 -lssl -lcrypto
 
 	echo -e "${Success}OK ... Compiling x86 version.${COff}"
 
-	i686-w64-mingw32-gcc -o Client-x86.exe x86/Client.c -I$HOME/OpenSSL-Windows-Static-x86/usr/local/include -L$HOME/OpenSSL-Windows-Static-x86/usr/local/lib -lssl -lcrypto -lws2_32 -lcrypt32 -lwininet -lgdi32 -lntdll -static && gcc x86/Server.c -o ./Server-x86 -lssl -lcrypto
+	i686-w64-mingw32-gcc -o Client-x86.exe x86/Client.c -Wl,--no-insert-timestamp -I$HOME/OpenSSL-Windows-Static-x86/usr/local/include -L$HOME/OpenSSL-Windows-Static-x86/usr/local/lib -lssl -lcrypto -lws2_32 -lcrypt32 -lwininet -lgdi32 -lntdll -static && gcc x86/Server.c -o ./Server-x86 -lssl -lcrypto
 
 	echo -e "${Success}Done.${COff}"
 
