@@ -81,7 +81,9 @@ I tried to fix as many as I could. If you find any other bug, feel free to let m
 
 - If you use wipembr on a Windows 7 machine, the client will crash (the MBR will still be wiped). The crash doesn't seem to occur on Windows 10 machines.
 
-- In some cases when running 'getfile' or 'screenshot', the file transfer might bug, and create an empty file with a strange name ($_'%237') or something like that. You can fix this by closing the program and running it again. In some other cases it fixed automatically after trying to re-run the command.
+- In some cases when running 'getfile' or 'screenshot', the file transfer might bug, and create an empty file with a strange name (''$'\200\376''>r'$'\234\177') or something like that.
+
+You can fix this by either closing the program and running it again, or if you got this when running 'screenshot', first use 'getfile' to retrieve an existing file, and then run 'screenshot' again. In some other cases it gets fixed automatically after trying to re-run the command.
 
 - If you do not have administrator privileges and you run 'startlogger' twice, the server will freeze and won't be able to send other commands.
 
