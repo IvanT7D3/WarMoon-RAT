@@ -52,9 +52,9 @@ If you want to use the outdated version, extract Outdated.7z, and read its READM
 - [x] Keylogger
 - [x] Persistence
 - [x] Fallback Shell
-- [x] Clean Event Viewer
+- [x] Clear Event Viewer
 - [x] Basic Anti-VM Checks
-- [x] Upload Files
+- [x] Upload Files (HTTP)
 - [x] Download Files
 - [x] Screenshots
 - [x] Process Injection
