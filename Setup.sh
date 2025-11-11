@@ -38,7 +38,7 @@ if [ "$1" == "install" ]; then
 		exit 1
 	fi
 
-	echo -e "${Success}Compilation will use all available cores. Avoid stressing the machine${COff}"
+	echo -e "${Success}Compilation will use all available cores...${COff}"
 
 	wget https://www.openssl.org/source/openssl-3.0.12.tar.gz
 	tar -xvzf openssl-3.0.12.tar.gz
