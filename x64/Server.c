@@ -27,13 +27,13 @@ struct sockaddr_in SAddr, CAddr;
 int Filefd;
 
 time_t rawtime;
-struct tm * tm;
+struct tm *tm;
 
 void GetTime()
 {
 	time (&rawtime);
 	tm = localtime(&rawtime);
-	printf("\n\033[0;34mCurrent Time: %d/%d/%d %d:%d:%d\033[0m\n\n", tm->tm_mday, tm->tm_mon + 1, tm->tm_year + 1900, tm->tm_hour, tm->tm_min, tm->tm_sec);
+	printf("\n\033[0;34mCurrent Time: %02d/%02d/%04d %02d:%02d:%02d\033[0m\n\n", tm->tm_mday, tm->tm_mon + 1, tm->tm_year + 1900, tm->tm_hour, tm->tm_min, tm->tm_sec);
 }
 
 void HelpMenu()
