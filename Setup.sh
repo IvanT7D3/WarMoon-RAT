@@ -26,6 +26,13 @@ if [ "$1" == "install" ]; then
 		apt-get install libssl-dev -y
 	fi
 
+	if dpkg -s "gcc-mingw-w64" &> /dev/null; then
+		echo -e "${Success}gcc-mingw-w64 is installed. Proceeding...${COff}"
+	else
+		echo -e "${Error}gcc-mingw-w64 is NOT installed. Installing...${COff}"
+		apt-get install gcc-mingw-w64 -y
+	fi
+
 	echo -e "${Success}Starting...${COff}"
 
 	if [ -d "$HOME/OpenSSL-Windows-Static-x64" ]; then
@@ -92,6 +99,13 @@ elif [ "$1" == "compile" ]; then
 	else
 		echo -e "${Error}libssl-dev is NOT installed. Installing...${COff}"
 		apt-get install libssl-dev -y
+	fi
+
+	if dpkg -s "gcc-mingw-w64" &> /dev/null; then
+		echo -e "${Success}gcc-mingw-w64 is installed. Proceeding...${COff}"
+	else
+		echo -e "${Error}gcc-mingw-w64 is NOT installed. Installing...${COff}"
+		apt-get install gcc-mingw-w64 -y
 	fi
 
 	if [ ! -d "$HOME/OpenSSL-Windows-Static-x64" ]; then
